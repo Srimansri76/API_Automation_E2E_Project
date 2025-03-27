@@ -13,7 +13,8 @@ public class DataProviderUtil {
     public static Object[][] getBookingData() throws IOException {
 
         String excelFilePath = "src/test/resources/createbookingtestdata.xlsx"; // Update the path
-        ExcelUtil excel = new ExcelUtil(excelFilePath, "Sheet1"); // Update sheet name
+        ExcelUtil excel = new ExcelUtil(excelFilePath, "Sheet1"); // Update sheet name if needed and its single user data
+      //ExcelUtil excel = new ExcelUtil(excelFilePath, "Sheet2"); // Update sheet name if needed and its multiple users data
         int rowCount = excel.getRowCount();
 
         List<Bookingdata> bookingList = new ArrayList<>();
@@ -23,10 +24,12 @@ public class DataProviderUtil {
             bookingdates.setCheckin(excel.getCellData(i, 4));
             bookingdates.setCheckout(excel.getCellData(i, 5));
 
+            // create booking with mutiple users data from excel with validataion actual and expected having issues with Toatal price ( casting issue)
+            // and Date formatter issue
             Bookingdata bookingdata = new Bookingdata();
             bookingdata.setFirstname(excel.getCellData(i, 0));
             bookingdata.setLastname(excel.getCellData(i, 1));
-            //bookingdata.setTotalprice((float) Double.parseDouble(excel.getCellData(i, 2)));
+            bookingdata.setTotalprice((float) Double.parseDouble(excel.getCellData(i, 2)));
             bookingdata.setTotalprice(Float.parseFloat(excel.getCellData(i, 2)));
             bookingdata.setDepositpaid(Boolean.parseBoolean(excel.getCellData(i, 3)));
             bookingdata.setBookingdates(bookingdates);
@@ -35,8 +38,8 @@ public class DataProviderUtil {
             bookingList.add(bookingdata);
 
             System.out.println ("++++++++++++=====================++++++++++++++++++++");
-            System.out.println("Raw Data from Excel: " + excel.getCellData(i, 2));
-            System.out.println("Parsed Float Value: " + Float.parseFloat(excel.getCellData(i, 2)));
+//            System.out.println("Raw Data from Excel: " + excel.getCellData(i, 2));
+//            System.out.println("Parsed Float Value: " + Float.parseFloat(excel.getCellData(i, 2)));
 
         }
 
