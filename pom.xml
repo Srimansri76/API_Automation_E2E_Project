@@ -37,22 +37,20 @@
 
 
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.2</version>
-        <configuration>
-          <systemPropertyVariables>
-            <property>
-              <name>allure.results.directory</name>
-              <value>allure-results</value>
-            </property>
-          </systemPropertyVariables>
-          <suiteXmlFiles>
-            <suiteXmlFile>testng.xml</suiteXmlFile>
-          </suiteXmlFiles>
-        </configuration>
-      </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <version>3.5.2</version>
+      <configuration>
+        <systemPropertyVariables>
+          <allure.results.directory>allure-results</allure.results.directory>
+        </systemPropertyVariables>
+        <suiteXmlFiles>
+          <suiteXmlFile>testng.xml</suiteXmlFile>  <!-- Runs only testng.xml -->
+        </suiteXmlFiles>
+      </configuration>
+    </plugin>
+
 
 
     <plugin>
