@@ -2,13 +2,19 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true"
-          name="C:/Program Files (x86)/Intellijrestassured/untitled/src/test/java/CURD/createbookingwithexceldata.java">
-        <classes>
-            <class name="CURD.createbookingwithexceldata">
-                <methods>
-                    <include name="createBookingTest"/>
-                </methods>
-            </class>
-        </classes>
+          name="C:/Program Files (x86)/Intellijrestassured/untitled/src/test/java/CURD">
+            <classes>
+                <class name="CURD.createbookingwithexceldata">
+                    <methods>
+                        <include name="createBookingTest"/>
+                    </methods>
+                </class>
+                <class name="CURD.restfulcurd">
+                    <methods>
+                        <include name="createbooking"/>
+                        <include name="getbookingbyid"/>
+                    </methods>
+                </class>
+            </classes>
     </test>
 </suite>

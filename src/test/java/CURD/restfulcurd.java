@@ -63,7 +63,7 @@ public void createbooking() throws JsonProcessingException {
 
 
 
-   validatableResponse.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("resources/createbookingschema.json"));
+    validatableResponse.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("createbookingschema.json"));
     System.out.println("----------------------------------------------------------------------------  ");
     System.out.println(jsonPath.getString("bookingid"));
     System.out.println("---------------------------------------------------------------------------- ");
