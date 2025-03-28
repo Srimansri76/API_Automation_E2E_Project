@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import endpoints.baseapi;
 import io.qameta.allure.*;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
@@ -110,5 +111,99 @@ public void createbooking() throws JsonProcessingException {
     Assert.assertEquals(actualFirstName, "Sriman", "Firstname does not match in GET response!");
 // its one type of validation both are good to use
 }
+
+    @Owner("Sriman")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify weather booking details fetching or not by bookingid")
+    @Feature("Get booking details by bookingid")
+    @Test (priority = 3 ,groups = {"Sanity","P0"})
+    public void getbookingbyidwithinvalidid() {
+
+        requestspecification.basePath(baseapi.UPDATE_GET_DELETE_BY_BOOKINGID);
+
+        response = RestAssured.given()
+                .spec(requestspecification)
+                .accept("application/json")
+                .pathParam("bookingId", "invalidBookingId")
+                .when().get();
+
+        //for validation storing responese
+        validatableResponse = response.then().log().all();
+
+
+
+    // its one type of validation
+        validatableResponse.statusCode(404);
+    }
+
+    @Owner("Sriman")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify weather booking details updating or not by bookingid")
+    @Feature("Update booking details by bookingid")
+    @Test (priority = 4 ,groups = {"Sanity","P0"})
+
+    public void updatebookingbyid() throws JsonProcessingException {
+
+        // Ensure base path is set correctly
+        requestspecification.basePath(baseapi.UPDATE_GET_DELETE_BY_BOOKINGID);
+
+        response = RestAssured.given()
+                .spec(requestspecification)
+                .pathParam("bookingId", 1)  // ✅ Ensure bookingId is properly passed
+                .header("Content-Type", "application/json")  // ✅ Sets request body format
+                .header("Accept", "application/json")  // ✅ Sets expected response format
+                .header("Cookie", "token= Basic YWRtaW46cGFzc3dvcmQxMjM=")  // ✅ Authorization token
+                // .header("Authorization", "Basic YWRtaW46cGFzc3dvcmQxMjM=") // (Alternative to Cookie, use one)
+                .body(payloadManager.updatepayload())
+                .when().put();
+
+
+        //for validation storing responese
+        validatableResponse = response.then().log().all();
+
+    }
+
+
+    @Owner("Sriman")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify weather booking details deleting or not by bookingid")
+    @Feature("Delete booking details by bookingid")
+    @Test (priority = 5 ,groups = {"Sanity","P0"})
+    public void deletebookingbyid() {
+
+        requestspecification.basePath(baseapi.UPDATE_GET_DELETE_BY_BOOKINGID);
+
+        response = RestAssured.given()
+                .spec(requestspecification)
+                .accept("application/json")
+                .pathParam("bookingId", bookingId)
+                .when().delete();
+
+        //for validation storing responese
+        validatableResponse = response.then().log().all();
+
+    }
+    @Owner("Sriman")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify weather booking details deleting or not by bookingid")
+    @Feature("Delete booking details by bookingid")
+    @Test (priority = 6 ,groups = {"Sanity","P0"})
+    public void deletebookingbyidwithinvalidid() {
+
+        requestspecification.basePath(baseapi.UPDATE_GET_DELETE_BY_BOOKINGID);
+
+        response = RestAssured.given()
+                .spec(requestspecification)
+                .accept("application/json")
+                .pathParam("bookingId", "invalidBookingId")
+                .when().delete();
+
+        //for validation storing responese
+        validatableResponse = response.then().log().all();
+
+        // its one type of validation
+        validatableResponse.statusCode(403);
+
+    }
 
 }
